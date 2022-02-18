@@ -12,14 +12,16 @@ namespace NewExTracker.BussinessLogic.Implementation
     public class OperationDispatch : IOperationDispatch
     {
         private ICardService _cardService;
+        private IPlaceService _placeService;
         private IDateTimeHandler _dateTimeHandler;
         private ISumHandler _sumHandler;
 
-        public OperationDispatch(ICardService cardHandler, IDateTimeHandler dateTimeHandler, ISumHandler sumHandler)
+        public OperationDispatch(ICardService cardService, IDateTimeHandler dateTimeHandler, ISumHandler sumHandler, IPlaceService placeService)
         {
-            _cardService = cardHandler;
+            _cardService = cardService;
             _dateTimeHandler = dateTimeHandler;
             _sumHandler = sumHandler;
+            _placeService = placeService;
 
         }
 
@@ -65,7 +67,7 @@ namespace NewExTracker.BussinessLogic.Implementation
             messageResponse.CardNumber = cardResponse.CardNumber;
             messageResponse.UserName = cardResponse.UserName;
             messageResponse.UserSurname = cardResponse.UserSurname;
-
+            
 
             return messageResponse;
         }

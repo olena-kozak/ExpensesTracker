@@ -10,7 +10,8 @@ namespace NewExTracker.Mapper
             {
                 return new Place
                 {
-
+                    OtpsmartName = place.OTPSmartName,
+                    Name = place.Name
                 };
             }
             else { return null; }

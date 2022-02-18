@@ -16,6 +16,8 @@ builder.Services.AddScoped<IOperationDispatch, OperationDispatch>();
 builder.Services.AddScoped<ICardService, CardService>();
 builder.Services.AddScoped<ISumHandler, SumHandler>();
 builder.Services.AddScoped<IDateTimeHandler, DateTimeHandler>();
+builder.Services.AddScoped<IPlaceService, PlaceService>();
+builder.Services.AddScoped<IPlaceRepository, PlaceRepository>();
 builder.Services.AddScoped<ICardRepository, CardRepository>();
 
 builder.Services.AddControllers();

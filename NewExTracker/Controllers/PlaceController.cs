@@ -41,5 +41,8 @@ namespace NewExTracker.Controllers
             }
             return Ok();
         }
+
+
+        ///якщо при get place відсутнє в бд, то використати otpSmartName
     }
 }

@@ -21,7 +21,7 @@ namespace NewExTracker.BussinessLogic.Implementation
 
         public bool PlaceExist(string name)
         {
-            throw new NotImplementedException();
+           return _placeRepository.PlaceExist(name);
         }
     }
 }

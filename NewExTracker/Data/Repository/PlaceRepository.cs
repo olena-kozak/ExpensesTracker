@@ -22,9 +22,9 @@ namespace NewExTracker.Data.Repository
             throw new NotImplementedException();
         }
 
-        public bool PlaceExist(string name)
+        public bool PlaceExist(string otpsmartName)
         {
-            bool value = _dbContext.Places.Any(a => a.Name.ToLower().Trim() == name.ToLower().Trim());
+            bool value = _dbContext.Places.Any(a => a.OtpsmartName.ToLower().Trim() == otpsmartName.ToLower().Trim());
             return value;
         }
 
