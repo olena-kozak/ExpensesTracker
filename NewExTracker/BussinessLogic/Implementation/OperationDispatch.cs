@@ -67,7 +67,7 @@ namespace NewExTracker.BussinessLogic.Implementation
             messageResponse.CardNumber = cardResponse.CardNumber;
             messageResponse.UserName = cardResponse.UserName;
             messageResponse.UserSurname = cardResponse.UserSurname;
-            
+            messageResponse.Place = _placeService.GetPlaceByOtpSmartName(message);
 
             return messageResponse;
         }

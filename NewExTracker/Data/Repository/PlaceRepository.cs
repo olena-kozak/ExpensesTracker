@@ -17,6 +17,31 @@ namespace NewExTracker.Data.Repository
             return Save();
         }
 
+        ///якщо при get place відсутнє в бд, то використати otpSmartName
+        public Place GetPlaceByOtpName(PlaceRequest placeRequest)
+        {
+            if (PlaceExist(placeRequest.OTPSmartName))
+            {
+                return _dbContext.Places.Where(x => x.OtpsmartName == placeRequest.OTPSmartName).FirstOrDefault();
+            }
+            return new Place
+            {
+                OtpsmartName = placeRequest.OTPSmartName,
+                Name = null
+            };
+        }
+
+        public string GetPlaceByOtpSmartName(string otpSmartName)
+        {
+
+            if (PlaceExist(otpSmartName))
+            {
+                return _dbContext.Places.Where(x => x.OtpsmartName == otpSmartName).FirstOrDefault().Name;
+            }
+            return otpSmartName;
+
+        }
+
         public bool DeletePlace(Place place)
         {
             throw new NotImplementedException();
@@ -42,5 +67,7 @@ namespace NewExTracker.Data.Repository
         {
             throw new NotImplementedException();
         }
+
+
     }
 }
