@@ -1,4 +1,5 @@
-﻿using NewExTracker.Data.Repository.IRepository;
+﻿using Microsoft.EntityFrameworkCore;
+using NewExTracker.Data.Repository.IRepository;
 using NewExTracker.Models;
 using NewExTracker.Models.DTO;
 
@@ -14,29 +15,11 @@ namespace NewExTracker.Data.Repository
             _dbContext = dbContext;
         }
 
-        public bool CardExist(string name)
+        public Card GetCard(int cardId)
         {
-            throw new NotImplementedException();
-        }
-
-        public bool CardExist(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool CreateCard(Card card)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool DeleteCard(Card card)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Card GetCard(int card)
-        {
-            throw new NotImplementedException();
+            return _dbContext.Cards.Where(x => x.Id == cardId)
+                                   .Include(navigationPropertyPath: x => x.BankingAccount)
+                                   .FirstOrDefault();
         }
 
         public List<Card> GetCardByLastDigits(int lastDigits)
@@ -45,7 +28,15 @@ namespace NewExTracker.Data.Repository
             return cards;
         }
 
-        public List<CardResponse> GetCardByOwnerPhoneNumber(string ownerPhoneNumber)
+        public List<Card> GetCardByOwnerPhoneNumber(string ownerPhoneNumber)
+        {
+            return _dbContext.Cards.Where(x => x.CardOwner.Person.PhoneNumber == ownerPhoneNumber)
+                                         .Include(x => x.BankingAccount)
+                                         .Include(x => x.CardOwner)
+                                         .ToList();
+        }
+
+        public List<CardResponse> GetCardResponseByOwnerPhoneNumber(string ownerPhoneNumber)
         {
             var entity = _dbContext.Cards
             .Join(_dbContext.Owners,
@@ -97,6 +88,7 @@ namespace NewExTracker.Data.Repository
             List<CardResponse> cardsResponse = entity.Select(
                 x => new CardResponse
                 {
+                    CardId = x.CardId,
                     CardNumber = x.CardNumber,
                     UserName = x.UserName,
                     UserSurname = x.UserSurname
@@ -117,9 +109,6 @@ namespace NewExTracker.Data.Repository
             throw new NotImplementedException();
         }
 
-        public bool UpdateCard(Card card)
-        {
-            throw new NotImplementedException();
-        }
+
     }
 }

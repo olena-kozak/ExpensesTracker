@@ -7,26 +7,11 @@ namespace NewExTracker.Data.Repository.IRepository
     {
         ICollection<Card> GetCards();
 
-        Card GetCard(int card);
-
         public List<Card> GetCardByLastDigits(int lastDigits);
 
-        public List<CardResponse> GetCardByOwnerPhoneNumber(string ownerPhoneNumber);
+        public List<CardResponse> GetCardResponseByOwnerPhoneNumber(string ownerPhoneNumber);
 
-        bool CardExist(string name);
-
-
-        bool CardExist(int id);
-
-
-        bool CreateCard(Card card);
-
-
-        bool UpdateCard(Card card);
-
-
-        bool DeleteCard(Card card);
-
+        public List<Card> GetCardByOwnerPhoneNumber(string ownerPhoneNumber);
 
         bool Save();
     }

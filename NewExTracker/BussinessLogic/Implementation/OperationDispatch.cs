@@ -15,13 +15,16 @@ namespace NewExTracker.BussinessLogic.Implementation
         private IPlaceService _placeService;
         private IDateTimeHandler _dateTimeHandler;
         private ISumHandler _sumHandler;
+        private IBankingAccountService _bankingAccountService;
 
-        public OperationDispatch(ICardService cardService, IDateTimeHandler dateTimeHandler, ISumHandler sumHandler, IPlaceService placeService)
+        public OperationDispatch(ICardService cardService, IDateTimeHandler dateTimeHandler, ISumHandler sumHandler, IPlaceService placeService,
+            IBankingAccountService bankingAccountService)
         {
             _cardService = cardService;
             _dateTimeHandler = dateTimeHandler;
             _sumHandler = sumHandler;
             _placeService = placeService;
+            _bankingAccountService = bankingAccountService;
 
         }
 
@@ -63,11 +66,13 @@ namespace NewExTracker.BussinessLogic.Implementation
             messageResponse.DateTime = dateTime;
             messageResponse.MessageType = "Payment";
             messageResponse.Sum = _sumHandler.GetSumAsString(message);
-            CardResponse cardResponse = _cardService.GetCard(message, ownerPhoneNumber);
+            CardResponse cardResponse = _cardService.GetCardResponse(message, ownerPhoneNumber);
             messageResponse.CardNumber = cardResponse.CardNumber;
             messageResponse.UserName = cardResponse.UserName;
             messageResponse.UserSurname = cardResponse.UserSurname;
             messageResponse.Place = _placeService.GetPlaceByOtpSmartName(message);
+
+           // messageResponse.AvailiableSum =_bankingAccountService.
 
             return messageResponse;
         }

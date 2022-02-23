@@ -9,19 +9,21 @@ namespace NewExTracker.BussinessLogic.Implementation
     public class CardService : ICardService
     {
         private readonly ICardRepository _cardRepository;
+        private ICardNumberParser _cardNumberParser;
 
-        public CardService(ICardRepository cardRepository)
+        public CardService(ICardRepository cardRepository, ICardNumberParser cardNumberParser)
         {
             _cardRepository = cardRepository;
+            _cardNumberParser = cardNumberParser;
         }
 
-        public CardResponse GetCard(string receivedMessage, string ownerPhoneNumber)
+        public CardResponse GetCardResponse(string receivedMessage, string ownerPhoneNumber)
         {
             CardResponse cardResponse = new CardResponse();
-            var cardsLastDigits = ParseCardNumber(receivedMessage);
+            var cardsLastDigits = _cardNumberParser.ParseCardNumber(receivedMessage);
             if (cardsLastDigits != 0)
             {
-                var cardsByOwnerPhoneNumer = _cardRepository.GetCardByOwnerPhoneNumber(ownerPhoneNumber);
+                var cardsByOwnerPhoneNumer = _cardRepository.GetCardResponseByOwnerPhoneNumber(ownerPhoneNumber);
                 if (cardsByOwnerPhoneNumer != null)
                 {
                     cardResponse = cardsByOwnerPhoneNumer.Where(a => a.CardNumber.ToString().Contains(cardsLastDigits.ToString())).FirstOrDefault();
@@ -31,21 +33,20 @@ namespace NewExTracker.BussinessLogic.Implementation
             return null;
         }
 
-        private static int ParseCardNumber(string receivedMessage)
+        public Card GetCard(string receivedMessage, string ownerPhoneNumber)
         {
-            //Regex regex = new Regex(@"Kartka\s[*].*[.]");
-            int cardNumber = 0;
-            Regex regex = new Regex(@"(\*.*\.)");
-            Match matchCardNumber = regex.Match(receivedMessage);
-            if (matchCardNumber.Success)
+            Card card = new Card();
+            var cardsLastDigits = _cardNumberParser.ParseCardNumber(receivedMessage);
+            if (cardsLastDigits != 0)
             {
-                var matchingValue = matchCardNumber.Groups[0].Value;
-                var indexToStart = matchingValue.IndexOf("*") + 1;
-                var substring = matchingValue.Substring(indexToStart, 4).Trim();
-                cardNumber = int.Parse(substring);
-                return cardNumber;
+                var cardsByOwnerPhoneNumer = _cardRepository.GetCardByOwnerPhoneNumber(ownerPhoneNumber);
+                if (cardsByOwnerPhoneNumer != null)
+                {
+                    card = cardsByOwnerPhoneNumer.Where(a => a.CardNumber.ToString().Contains(cardsLastDigits.ToString())).FirstOrDefault();
+                }
             }
-            return cardNumber;
+            return null;
         }
+
     }
 }
