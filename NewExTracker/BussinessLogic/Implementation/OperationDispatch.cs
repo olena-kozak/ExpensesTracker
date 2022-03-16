@@ -16,15 +16,17 @@ namespace NewExTracker.BussinessLogic.Implementation
         private IDateTimeHandler _dateTimeHandler;
         private ISumHandler _sumHandler;
         private IBankingAccountService _bankingAccountService;
+        private IAvailiableSumHandler _availiableSumHandler;
 
         public OperationDispatch(ICardService cardService, IDateTimeHandler dateTimeHandler, ISumHandler sumHandler, IPlaceService placeService,
-            IBankingAccountService bankingAccountService)
+            IBankingAccountService bankingAccountService, IAvailiableSumHandler availiableSumHandler)
         {
             _cardService = cardService;
             _dateTimeHandler = dateTimeHandler;
             _sumHandler = sumHandler;
             _placeService = placeService;
             _bankingAccountService = bankingAccountService;
+            _availiableSumHandler = availiableSumHandler;
 
         }
 
@@ -66,13 +68,24 @@ namespace NewExTracker.BussinessLogic.Implementation
             messageResponse.DateTime = dateTime;
             messageResponse.MessageType = "Payment";
             messageResponse.Sum = _sumHandler.GetSumAsString(message);
-            CardResponse cardResponse = _cardService.GetCardResponse(message, ownerPhoneNumber);
-            messageResponse.CardNumber = cardResponse.CardNumber;
-            messageResponse.UserName = cardResponse.UserName;
-            messageResponse.UserSurname = cardResponse.UserSurname;
+            Card card = _cardService.GetCard(message, ownerPhoneNumber);
+            messageResponse.CardNumber = card.CardNumber;
+            messageResponse.UserName = card.CardUser.Person.Name;            //TODO: card user can't be null
+            messageResponse.UserSurname = card.CardUser.Person.Surname;
             messageResponse.Place = _placeService.GetPlaceByOtpSmartName(message);
 
-           // messageResponse.AvailiableSum =_bankingAccountService.
+            BankingAccount bankingAccount = card.BankingAccount;               //TODO: remove cast, banking account id can't be null
+
+            //get availiable sum from message, compare with availiable sum on bankingAccount
+            string receivedAvailiableSum = _availiableSumHandler.GetAvailiableSum(message);
+            if (receivedAvailiableSum != null)
+            {
+                bool isAvailiableSumSame = _bankingAccountService.CheckAlailibleSum(bankingAccount, receivedAvailiableSum);
+                if (isAvailiableSumSame)
+                {
+                    messageResponse.AvailiableSum = receivedAvailiableSum;
+                }
+            }
 
             return messageResponse;
         }

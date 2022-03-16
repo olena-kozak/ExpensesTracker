@@ -2,5 +2,6 @@
 {
     public interface IAvailiableSumHandler
     {
+        public string GetAvailiableSum(string message);
     }
 }

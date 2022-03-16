@@ -11,6 +11,11 @@ namespace NewExTracker.Data.Repository
             _dbContext = dbContext;
         }
 
+        public decimal GetAvailiableSum(int bankingAccoutId)
+        {
+            throw new NotImplementedException();
+        }
+
         public bool UpdateAvailiableSum(int bankingAccoutId)
         {
             BankingAccount existingBankingAccount = _dbContext.BankingAccounts.Find(bankingAccoutId);
@@ -31,7 +36,7 @@ namespace NewExTracker.Data.Repository
         }
 
 
-        public decimal GetAvailiableSum(int bankingAccoutId)
+        /*public decimal GetAvailiableSum(int bankingAccoutId)
         {
 
         }
@@ -39,7 +44,7 @@ namespace NewExTracker.Data.Repository
         public bool CheckAvailiableSum(int bankingAccoutId)
         {
 
-        }
+        }*/
 
     }
 }

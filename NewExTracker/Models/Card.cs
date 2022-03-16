@@ -18,6 +18,7 @@ namespace NewExTracker.Models
 
         public virtual BankingAccount? BankingAccount { get; set; }
         public virtual Owner? CardOwner { get; set; }
+        public virtual User? CardUser { get; set; }
         public virtual ICollection<Message> Messages { get; set; }
     }
 }

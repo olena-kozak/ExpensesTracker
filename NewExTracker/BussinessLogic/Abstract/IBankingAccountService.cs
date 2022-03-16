@@ -1,4 +1,6 @@
-﻿namespace NewExTracker.BussinessLogic.Abstract
+﻿using NewExTracker.Models;
+
+namespace NewExTracker.BussinessLogic.Abstract
 {
     public interface IBankingAccountService
     {
@@ -6,6 +8,6 @@
 
         public string GetAlailibleSum(int bankingAccountId, string ownerPhoneNumber);
 
-        public bool CheckAlailibleSum(int bankingAccountId);
+        public bool CheckAlailibleSum(BankingAccount bankingAccount, string reveivedAvailiavleSum);
     }
 }

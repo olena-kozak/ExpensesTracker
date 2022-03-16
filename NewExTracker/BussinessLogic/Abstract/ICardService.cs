@@ -5,6 +5,6 @@ namespace NewExTracker.BussinessLogic.Abstract
 {
     public interface ICardService
     {
-        public CardResponse GetCardResponse(string receivedMessage, string phoneNumber);
+        public Card GetCard(string receivedMessage, string ownerNumber);
     }
 }
