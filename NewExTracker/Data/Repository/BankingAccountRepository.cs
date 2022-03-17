@@ -34,17 +34,7 @@ namespace NewExTracker.Data.Repository
             return _dbContext.SaveChanges() > 0;
 
         }
-
-
-        /*public decimal GetAvailiableSum(int bankingAccoutId)
-        {
-
-        }
-
-        public bool CheckAvailiableSum(int bankingAccoutId)
-        {
-
-        }*/
+ 
 
     }
 }

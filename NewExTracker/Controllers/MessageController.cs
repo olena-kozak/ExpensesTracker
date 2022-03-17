@@ -13,14 +13,14 @@ namespace NewExTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class MessageController : ControllerBase
+    public class MessageController : ControllerBase                                 // TODO: create controller for every type of information
     {
-        private IMessageParserService _messageParserService; 
+        private IMessageParserService _messageParserService;
 
         public MessageController(IMessageParserService messageParserService)
         {
             _messageParserService = messageParserService;
-           
+
         }
 
         [HttpPost]

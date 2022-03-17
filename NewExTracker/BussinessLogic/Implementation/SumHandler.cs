@@ -22,5 +22,28 @@ namespace NewExTracker.BussinessLogic.Implementation
 
             return null;
         }
+
+        public decimal GetSumAsDecimal(string receivedMessage)
+        {
+            Regex regex = new Regex(@"Suma[:]\s\d*\.*\d*\s");
+            Match match = regex.Match(receivedMessage);
+            if (match.Success)
+            {
+                var matchingValue = match.Value;
+                int indexStart = matchingValue.IndexOf(":") + 1;
+                int length = matchingValue.Length - indexStart;
+                var sum = (match.Value).Substring(indexStart, length).Trim();
+                return ParseSumAsDecimal(sum);
+            }
+            return 0;
+
+        }
+
+        private decimal ParseSumAsDecimal(string sumAsString)
+        {
+            decimal sumOfPayment = 0;
+            Decimal.TryParse(sumAsString, out sumOfPayment);
+            return sumOfPayment;
+        }
     }
 }

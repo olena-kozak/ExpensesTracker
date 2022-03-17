@@ -4,10 +4,9 @@ namespace NewExTracker.BussinessLogic.Abstract
 {
     public interface IBankingAccountService
     {
-        public bool UpdateAlailibleSum(int bankingAccountId);
+        public bool UpdateAlailibleSum(BankingAccount bankingAccountId);
 
-        public string GetAlailibleSum(int bankingAccountId, string ownerPhoneNumber);
+        public string GetAlailibleSum(BankingAccount bankingAccount, decimal sum, string receivedAvailiableSum);
 
-        public bool CheckAlailibleSum(BankingAccount bankingAccount, string reveivedAvailiavleSum);
     }
 }

@@ -2,6 +2,7 @@
 {
     public interface IAvailiableSumHandler
     {
-        public string GetAvailiableSum(string message);
+        public string ParseAvailiableSumFromRequest(string message);
+        public decimal GetAvailiableSumOnlyDigits(string receivedAvailiableSum);
     }
 }

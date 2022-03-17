@@ -14,6 +14,8 @@ namespace NewExTracker.Models.DTO
         public string Sum { get; set; }
 
         public string AvailiableSum { get; set; }
+
+        public decimal KredLim { get; set; }
         public string Place { get; set; }
         public string UserName { get; set; }
         public string UserSurname { get; set; }

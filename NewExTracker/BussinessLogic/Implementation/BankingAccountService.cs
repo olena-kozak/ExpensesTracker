@@ -6,45 +6,36 @@ namespace NewExTracker.BussinessLogic.Implementation
 {
     public class BankingAccountService : IBankingAccountService
     {
-        public bool CheckAlailibleSum(BankingAccount bankingAccount, string reveivedAvailiavleSum)
+        private IAvailiableSumHandler _availiableSumHandler;
+
+        public BankingAccountService(IAvailiableSumHandler availiableSumHandler)
         {
-            decimal bankingAccountAvaliableSum = bankingAccount.AvailibleSum;
-            Regex regex = new Regex(@"\d*\.\d*\s");
-            Match match = regex.Match(reveivedAvailiavleSum);
-            if (match.Success)
+            _availiableSumHandler = availiableSumHandler;
+        }
+
+        private bool CheckAlailibleSum(decimal bankingAccountAvaliableSum, decimal sum, string availiavleSumParsedFromMessage)
+        {
+            decimal prevBankingAccountAvailiableSum = _availiableSumHandler.GetAvailiableSumOnlyDigits(availiavleSumParsedFromMessage);
+            return (bankingAccountAvaliableSum - sum) == prevBankingAccountAvailiableSum;                                               //check if the previous sum in db are the same as new availiable
+        }
+
+        public string GetAlailibleSum(BankingAccount bankingAccount, decimal sum, string receivedAvailiableSum)                          //TODO: object as parameter?
+        {
+            if (receivedAvailiableSum != null)
             {
-                string matchValue = match.Value.TrimEnd();
-                decimal availiablesum = 0;
-                Decimal.TryParse(matchValue, out availiablesum);                              //TODO: Try parse?
-                return bankingAccountAvaliableSum == availiablesum;
-
+                bool isAvailiableSumSame = CheckAlailibleSum(bankingAccount.AvailibleSum, sum, receivedAvailiableSum);
+                if (isAvailiableSumSame)
+                {
+                    return receivedAvailiableSum;
+                }
             }
-            return false;               //TODO: Throw exception
+            return null;
         }
 
-        public bool CheckBankingAccountOwner(int bankingAccountId, string ownerPhoneNumber)
+        public bool UpdateAlailibleSum(BankingAccount bankingAccountId)
         {
             throw new NotImplementedException();
         }
 
-        public int GetBankingAccountId(string ownerPhoneNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetAlailibleSum(int bankingAccountId, string ownerPhoneNumber)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdateAlailibleSum(int bankingAccountId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool UpdateKredLim(int bankingAccountId)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

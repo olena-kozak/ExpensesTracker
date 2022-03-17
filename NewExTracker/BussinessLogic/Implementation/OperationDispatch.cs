@@ -67,25 +67,18 @@ namespace NewExTracker.BussinessLogic.Implementation
             MessageResponse messageResponse = new MessageResponse();
             messageResponse.DateTime = dateTime;
             messageResponse.MessageType = "Payment";
+
             messageResponse.Sum = _sumHandler.GetSumAsString(message);
+            decimal sum = _sumHandler.GetSumAsDecimal(message);
+
             Card card = _cardService.GetCard(message, ownerPhoneNumber);
             messageResponse.CardNumber = card.CardNumber;
-            messageResponse.UserName = card.CardUser.Person.Name;            //TODO: card user can't be null
+            messageResponse.UserName = card.CardUser.Person.Name;                                        //TODO: card user can't be null
             messageResponse.UserSurname = card.CardUser.Person.Surname;
             messageResponse.Place = _placeService.GetPlaceByOtpSmartName(message);
 
-            BankingAccount bankingAccount = card.BankingAccount;               //TODO: remove cast, banking account id can't be null
-
-            //get availiable sum from message, compare with availiable sum on bankingAccount
-            string receivedAvailiableSum = _availiableSumHandler.GetAvailiableSum(message);
-            if (receivedAvailiableSum != null)
-            {
-                bool isAvailiableSumSame = _bankingAccountService.CheckAlailibleSum(bankingAccount, receivedAvailiableSum);
-                if (isAvailiableSumSame)
-                {
-                    messageResponse.AvailiableSum = receivedAvailiableSum;
-                }
-            }
+            string parsedAvailiableSumFromRequest = _availiableSumHandler.ParseAvailiableSumFromRequest(message);
+            messageResponse.AvailiableSum = _bankingAccountService.GetAlailibleSum(card.BankingAccount, sum, parsedAvailiableSumFromRequest);   //TODO: bankingAccount can't be null
 
             return messageResponse;
         }
