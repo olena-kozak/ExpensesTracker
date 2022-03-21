@@ -38,7 +38,7 @@ namespace NewExTracker.Data
         {
             modelBuilder.Entity<BankingAccount>(entity =>
             {
-                entity.Property(e => e.AvailibleSum).HasColumnType("decimal(18, 2)");
+                entity.Property(e => e.AvailiableSum).HasColumnType("decimal(18, 2)");
 
                 entity.Property(e => e.KredLimits).HasColumnType("decimal(18, 2)");
             });

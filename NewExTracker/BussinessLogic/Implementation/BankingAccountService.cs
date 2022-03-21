@@ -1,4 +1,5 @@
 ﻿using NewExTracker.BussinessLogic.Abstract;
+using NewExTracker.Data.Repository.IRepository;
 using NewExTracker.Models;
 using System.Text.RegularExpressions;
 
@@ -7,34 +8,46 @@ namespace NewExTracker.BussinessLogic.Implementation
     public class BankingAccountService : IBankingAccountService
     {
         private IAvailiableSumHandler _availiableSumHandler;
+        private IBankingAccountRepository _bankingAccountRepository;
 
-        public BankingAccountService(IAvailiableSumHandler availiableSumHandler)
+        public BankingAccountService(IAvailiableSumHandler availiableSumHandler, IBankingAccountRepository bankingAccountRepository)
         {
             _availiableSumHandler = availiableSumHandler;
+            _bankingAccountRepository = bankingAccountRepository;
         }
 
-        private bool CheckAlailibleSum(decimal bankingAccountAvaliableSum, decimal sum, string availiavleSumParsedFromMessage)
+        public string GetAlailibleSum(BankingAccount bankingAccount, decimal sum, string avaliableSumFroRequest)                          //TODO: object as parameter?
         {
-            decimal prevBankingAccountAvailiableSum = _availiableSumHandler.GetAvailiableSumOnlyDigits(availiavleSumParsedFromMessage);
-            return (bankingAccountAvaliableSum - sum) == prevBankingAccountAvailiableSum;                                               //check if the previous sum in db are the same as new availiable
-        }
-
-        public string GetAlailibleSum(BankingAccount bankingAccount, decimal sum, string receivedAvailiableSum)                          //TODO: object as parameter?
-        {
-            if (receivedAvailiableSum != null)
+            if (avaliableSumFroRequest != null)
             {
-                bool isAvailiableSumSame = CheckAlailibleSum(bankingAccount.AvailibleSum, sum, receivedAvailiableSum);
+                decimal parsedAvaliablSumFromRequest = _availiableSumHandler.GetAvailiableSumOnlyDigits(avaliableSumFroRequest);
+                bool isAvailiableSumSame = CheckAlailibleSum(bankingAccount.AvailiableSum, sum, parsedAvaliablSumFromRequest);
                 if (isAvailiableSumSame)
                 {
-                    return receivedAvailiableSum;
+                    bool isUpdated = UpdateAlailibleSum(bankingAccount.Id, parsedAvaliablSumFromRequest);
+                    if (isUpdated)
+                    {
+                        return avaliableSumFroRequest;
+                    }
+                    else
+                    {
+                        throw new Exception("Something went wrong during update");
+                    }
+
                 }
             }
             return null;
         }
 
-        public bool UpdateAlailibleSum(BankingAccount bankingAccountId)
+        private bool CheckAlailibleSum(decimal bankingAccountAvaliableSum, decimal sum, decimal parsedAvaliablSumFromRequest)
         {
-            throw new NotImplementedException();
+            return (bankingAccountAvaliableSum - sum) == parsedAvaliablSumFromRequest;                                               //check if the previous sum in db are the same as new availiable
+        }
+
+        private bool UpdateAlailibleSum(int bankingAccountId, decimal parsedAvaliablSumFromRequest)
+        {
+            return _bankingAccountRepository.UpdateAvailiableSum(bankingAccountId, parsedAvaliablSumFromRequest);
+
         }
 
     }

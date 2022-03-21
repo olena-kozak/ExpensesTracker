@@ -11,7 +11,7 @@ namespace NewExTracker.Models
         }
 
         public int Id { get; set; }
-        public decimal AvailibleSum { get; set; }
+        public decimal AvailiableSum { get; set; }
         public decimal KredLimits { get; set; }
 
         public virtual ICollection<Card> Cards { get; set; }
