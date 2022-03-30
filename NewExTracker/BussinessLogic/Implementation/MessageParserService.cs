@@ -18,21 +18,20 @@ namespace NewExTracker.BussinessLogic.Implementation
         {
             _operationDispatch = operationDispatch;
         }
-        public MessageResponse ParseMessageInObject(ParseMessageRequest messageRequest)
+
+        public object ParseMessageInObject(MessageRequest messageRequest)
         {
             string message = GetStringFromMessageRequest(messageRequest);
             string ownerPhoneNumber = GetOwnerPhoneNumber(messageRequest);
-
-            _operationDispatch.Dispatch(message, ownerPhoneNumber);
-            return null;
+            return _operationDispatch.Dispatch(message, ownerPhoneNumber);
         }
 
-        private string GetOwnerPhoneNumber(ParseMessageRequest requestMessage)
+        private string GetOwnerPhoneNumber(MessageRequest requestMessage)
         {
             return requestMessage.OwnerPhoneNumber.Trim();
         }
 
-        private string GetStringFromMessageRequest(ParseMessageRequest requestMessage)
+        private string GetStringFromMessageRequest(MessageRequest requestMessage)
         {
             return requestMessage.Message;
         }

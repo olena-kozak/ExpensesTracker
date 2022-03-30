@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace NewExTracker.Models
 {
-    public class ParseMessageRequest
+    public class MessageRequest
     {
         public string Message { get; set; }
         public string OwnerPhoneNumber { get; set; }

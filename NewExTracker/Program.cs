@@ -25,6 +25,8 @@ builder.Services.AddScoped<IAvailiableSumHandler, AvailiableSumHandler>();
 builder.Services.AddScoped<IBankingAccountService, BankingAccountService>();
 builder.Services.AddScoped<IBankingAccountRepository, BankingAccountRepository>();
 builder.Services.AddScoped<IAvailiableSumHandler, AvailiableSumHandler>();
+builder.Services.AddScoped<IOperationTypeHandler, OperationTypeHandler>();
+builder.Services.AddScoped<IPaymentCancelPaymentService, PaymentCancelPaymentService>();
 
 
 builder.Services.AddControllers();

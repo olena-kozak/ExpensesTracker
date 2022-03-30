@@ -16,7 +16,7 @@ namespace NewExTracker.BussinessLogic.Implementation
             _bankingAccountRepository = bankingAccountRepository;
         }
 
-        public string GetAlailibleSum(BankingAccount bankingAccount, decimal sum, string avaliableSumFroRequest)                          //TODO: object as parameter?
+        public string UpdateAvailiableSum(BankingAccount bankingAccount, decimal sum, string avaliableSumFroRequest)                          //TODO: object as parameter?
         {
             if (avaliableSumFroRequest != null)
             {

@@ -25,10 +25,8 @@ namespace NewExTracker.Data.Repository
         {
             return _dbContext.Cards.Where(x => x.CardOwner.Person.PhoneNumber == ownerPhoneNumber)          //TODO: PERSON MAY BE NULL HERE
                                          .Include(x => x.BankingAccount)
-                                         .Include(x => x.CardOwner)
-                                         .ThenInclude(x => x.Person)
-                                         .Include(x => x.CardUser)
-                                         .ThenInclude(x => x.Person)
+                                         .Include(x => x.CardOwner.Person)
+                                         .Include(x => x.CardUser.Person)
                                          .ToList();
         }
 

@@ -1,7 +1,9 @@
-﻿namespace NewExTracker.BussinessLogic
+﻿using NewExTracker.Models.DTO;
+
+namespace NewExTracker.BussinessLogic
 {
     public interface IOperationDispatch
     {
-        public void Dispatch(string receivedMessage, string ownerPhoneNumber);
+        public object Dispatch(string receivedMessage, string ownerPhoneNumber);
     }
 }

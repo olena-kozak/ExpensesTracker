@@ -13,17 +13,21 @@ namespace NewExTracker.Data.Repository
 
         public decimal GetAvailiableSum(int bankingAccoutId)
         {
-            throw new NotImplementedException();
+            BankingAccount bankingAccount = _dbContext.BankingAccounts
+                   .FirstOrDefault(x => x.Id == bankingAccoutId);
+
+            return bankingAccount.AvailiableSum;
         }
 
         public bool UpdateAvailiableSum(int bankingAccoutId, decimal newAvailiableSum)
         {
             BankingAccount existingBankingAccount = _dbContext.BankingAccounts.Find(bankingAccoutId);
+            bool isUpdated = false;
             using var transaction = _dbContext.Database.BeginTransaction();
             try
             {
                 existingBankingAccount.AvailiableSum = newAvailiableSum;
-                _dbContext.SaveChanges();
+                isUpdated = _dbContext.SaveChanges() > 0;
                 transaction.Commit();
             }
             catch (Exception e)
@@ -31,10 +35,7 @@ namespace NewExTracker.Data.Repository
                 transaction.Rollback();
             }
 
-            return _dbContext.SaveChanges() > 0;
-
+            return isUpdated;
         }
-
-
     }
 }

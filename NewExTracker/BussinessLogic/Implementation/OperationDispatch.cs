@@ -11,82 +11,40 @@ namespace NewExTracker.BussinessLogic.Implementation
 {
     public class OperationDispatch : IOperationDispatch
     {
-        private ICardService _cardService;
-        private IPlaceService _placeService;
-        private IDateTimeHandler _dateTimeHandler;
-        private ISumHandler _sumHandler;
-        private IBankingAccountService _bankingAccountService;
-        private IAvailiableSumHandler _availiableSumHandler;
 
-        public OperationDispatch(ICardService cardService, IDateTimeHandler dateTimeHandler, ISumHandler sumHandler, IPlaceService placeService,
-            IBankingAccountService bankingAccountService, IAvailiableSumHandler availiableSumHandler)
+        private IOperationTypeHandler _operationTypeHandler;
+        private IPaymentCancelPaymentService _paymentCancelPaymentService;
+
+        public OperationDispatch(IOperationTypeHandler operationTypeHandler, IPaymentCancelPaymentService paymentCancelPaymentService)   //DI inject array of dependency
         {
-            _cardService = cardService;
-            _dateTimeHandler = dateTimeHandler;
-            _sumHandler = sumHandler;
-            _placeService = placeService;
-            _bankingAccountService = bankingAccountService;
-            _availiableSumHandler = availiableSumHandler;
-
+            _operationTypeHandler = operationTypeHandler;
+            _paymentCancelPaymentService = paymentCancelPaymentService;
         }
 
-        public void Dispatch(string receivedMessage, string ownerPhoneNumber)
+        public object Dispatch(string receivedMessage, string ownerPhoneNumber)
         {
-            var operationType = GetOperationType(receivedMessage);
+            var operationType = _operationTypeHandler.GetOperationType(receivedMessage);
 
-            if (operationType.Equals(OperationType.PAYMENT, StringComparison.OrdinalIgnoreCase))
+
+            if (operationType.Equals(OperationType.PAYMENT, StringComparison.OrdinalIgnoreCase) || operationType.Equals(OperationType.PAYMENT_CANCEL, StringComparison.OrdinalIgnoreCase))
             {
-                PaymentOperationHandler(receivedMessage, _dateTimeHandler.GetDateTimeStartWith(receivedMessage), ownerPhoneNumber);
+                return _paymentCancelPaymentService.HandlePaymentCancelPaymentOperation(receivedMessage, ownerPhoneNumber, operationType);
             }
             else if (operationType.Equals(OperationType.REFUSAL, StringComparison.OrdinalIgnoreCase))
             {
-                RefusalOperationHandler(receivedMessage);
+                // return RefusalOperationHandler(paymentInformation);
+                return null;
             }
-        }
-
-
-        private string GetOperationType(string message)
-        {
-            var dateTimeValue = _dateTimeHandler.GetDateTimeStartWith(message);
-
-            if (dateTimeValue != null)
+            else if (operationType.Equals(OperationType.PAYMENT_CANCEL, StringComparison.OrdinalIgnoreCase))
             {
-                return "Payment";
+                // return CancelPaymentOperationHandler(paymentInformation);
+                return null;
             }
-
-            if (message.Contains("Vidmova:"))
+            else
             {
-                return "Refusal";
+                return null;
             }
-            return null;
         }
 
-
-        public MessageResponse PaymentOperationHandler(string message, string dateTime, string ownerPhoneNumber)
-        {
-            MessageResponse messageResponse = new MessageResponse();
-            messageResponse.DateTime = dateTime;
-            messageResponse.MessageType = "Payment";
-
-            messageResponse.Sum = _sumHandler.GetSumAsString(message);
-            decimal sum = _sumHandler.GetSumAsDecimal(message);
-
-            Card card = _cardService.GetCard(message, ownerPhoneNumber);
-            messageResponse.CardNumber = card.CardNumber;
-            messageResponse.UserName = card.CardUser.Person.Name;                                        //TODO: card user can't be null
-            messageResponse.UserSurname = card.CardUser.Person.Surname;
-            messageResponse.Place = _placeService.GetPlaceByOtpSmartName(message);
-
-            string parsedAvailiableSumFromRequest = _availiableSumHandler.ParseAvailiableSumFromRequest(message);
-            messageResponse.AvailiableSum = _bankingAccountService.GetAlailibleSum(card.BankingAccount, sum, parsedAvailiableSumFromRequest);   //TODO: bankingAccount can't be null
-
-            return messageResponse;
-        }
-        public static void RefusalOperationHandler(string message)
-        {
-
-        }
     }
-
-
 }

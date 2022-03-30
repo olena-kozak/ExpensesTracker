@@ -7,15 +7,13 @@ namespace NewExTracker.BussinessLogic.Implementation
     {
         public string GetSumAsString(string receivedMessage)
         {
-            string sumRegexPattern = @"Suma[:]\s.*\s";
-            Regex regex = new Regex(@"Suma[:]\s.+\s\w+[.]");
+            Regex regex = new Regex(@"Suma[:]\s\-*\d+\.*\d*\s\w+[.]");    //TODO: -4.95 USD
             Match match = regex.Match(receivedMessage);
             if (match.Success)
             {
                 var matchingValue = match.Value;
                 int indexStart = matchingValue.IndexOf(":") + 1;
-                int indexEnd = matchingValue.IndexOf(".");
-                int substringLength = indexEnd - indexStart;
+                int substringLength = (matchingValue.Length - 2) - indexStart;
                 var sum = (match.Value).Substring(indexStart, substringLength).Trim();
                 return sum;
             }
@@ -25,7 +23,7 @@ namespace NewExTracker.BussinessLogic.Implementation
 
         public decimal GetSumAsDecimal(string receivedMessage)
         {
-            Regex regex = new Regex(@"Suma[:]\s\d*\.*\d*\s");
+            Regex regex = new Regex(@"Suma[:]\s\-*\d+\.*\d*\s");
             Match match = regex.Match(receivedMessage);
             if (match.Success)
             {

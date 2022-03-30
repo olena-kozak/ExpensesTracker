@@ -14,7 +14,7 @@ namespace NewExTracker.Controllers
     [Route("api/[controller]")]
     [ApiController]
     public class MessageController : ControllerBase                                 // TODO: create controller for every type of information
-    {
+    {                                                                                               //перенос замінити на space
         private IMessageParserService _messageParserService;
 
         public MessageController(IMessageParserService messageParserService)
@@ -24,7 +24,7 @@ namespace NewExTracker.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostMessage([FromBody] ParseMessageRequest requestMessage)
+        public IActionResult PostMessage([FromBody] MessageRequest requestMessage)
         {
             if (requestMessage == null)
             {
@@ -36,11 +36,13 @@ namespace NewExTracker.Controllers
                 return BadRequest(ModelState);
             }
 
-            MessageResponse responseMessage = _messageParserService.ParseMessageInObject(requestMessage);
+            object responseMessage = _messageParserService.ParseMessageInObject(requestMessage);
 
-            return Ok(responseMessage);
+            if (responseMessage != null)
+            {
+                return Ok(responseMessage);
+            }
+            return Ok();
         }
-
-
     }
 }

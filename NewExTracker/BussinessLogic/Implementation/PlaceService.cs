@@ -1,7 +1,7 @@
 ﻿using NewExTracker.BussinessLogic.Abstract;
-using NewExTracker.Mapper;
 using NewExTracker.Data.Repository.IRepository;
 using NewExTracker.Models;
+using NewExTracker.Mapper;
 using System.Text.RegularExpressions;
 
 namespace NewExTracker.BussinessLogic.Implementation
@@ -38,7 +38,6 @@ namespace NewExTracker.BussinessLogic.Implementation
                 string place = matchingString.Substring(indexStart, length).Trim();
                 return _placeRepository.GetPlaceByOtpSmartName(place);
             }
-
             return null;
         }
 
