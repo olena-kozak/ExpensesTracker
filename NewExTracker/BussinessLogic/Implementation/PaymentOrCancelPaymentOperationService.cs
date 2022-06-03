@@ -1,10 +1,10 @@
-﻿using NewExTracker.BussinessLogic.Abstract;
-using NewExTracker.Models;
-using NewExTracker.Mapper;
-using static NewExTracker.BussinessLogic.Implementation.BaseOperationService;
-using NewExTracker.BussinessLogic.Exceptions;
+﻿using ExpensesTracker.BussinessLogic.Abstract;
+using ExpensesTracker.Models;
+using ExpensesTracker.Mapper;
+using static ExpensesTracker.BussinessLogic.Implementation.BaseOperationService;
+using ExpensesTracker.BussinessLogic.Exceptions;
 
-namespace NewExTracker.BussinessLogic.Implementation
+namespace ExpensesTracker.BussinessLogic.Implementation
 {
     public class PaymentCancelPaymentService : IPaymentCancelPaymentService
     {
@@ -17,7 +17,7 @@ namespace NewExTracker.BussinessLogic.Implementation
 
         public PaymentCancelPaymentService(IOperationTypeHandler operationTypeHandler, ICardService cardService, ISumHandler sumHandler,
                                             IAvailiableSumHandler availiableSumHandler, IBankingAccountService bankingAccountService,
-                                            IBaseMessageCreator<PaymentCancelPaymentMessage> baseMessageCreator)                                 //IEnumerable<IBaseInterface> interfacesToREsolve                                                       
+                                            IBaseMessageCreator<PaymentCancelPaymentMessage> baseMessageCreator)                                                                             
         {
             _cardService = cardService;
             _sumHandler = sumHandler;

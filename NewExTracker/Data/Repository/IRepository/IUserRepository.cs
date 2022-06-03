@@ -1,4 +1,4 @@
-﻿namespace NewExTracker.Data.Repository.IRepository
+﻿namespace ExpensesTracker.Data.Repository.IRepository
 {
     public interface IUserRepository
     {

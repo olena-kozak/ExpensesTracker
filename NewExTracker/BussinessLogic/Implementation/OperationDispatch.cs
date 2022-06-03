@@ -1,14 +1,14 @@
-﻿using NewExTracker.BussinessLogic.Abstract;
-using NewExTracker.BussinessLogic.Exceptions;
-using NewExTracker.Models;
-using NewExTracker.Models.DTO;
+﻿using ExpensesTracker.BussinessLogic.Abstract;
+using ExpensesTracker.BussinessLogic.Exceptions;
+using ExpensesTracker.Models;
+using ExpensesTracker.Models.DTO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace NewExTracker.BussinessLogic.Implementation
+namespace ExpensesTracker.BussinessLogic.Implementation
 {
     public class OperationDispatch : IOperationDispatch
     {

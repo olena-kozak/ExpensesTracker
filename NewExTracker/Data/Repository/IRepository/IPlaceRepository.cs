@@ -1,6 +1,6 @@
-﻿using NewExTracker.Models;
+﻿using ExpensesTracker.Models;
 
-namespace NewExTracker.Data.Repository.IRepository
+namespace ExpensesTracker.Data.Repository.IRepository
 {
     public interface IPlaceRepository
     {

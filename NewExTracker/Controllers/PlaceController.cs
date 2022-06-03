@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using NewExTracker.BussinessLogic.Abstract;
-using NewExTracker.Models;
+using ExpensesTracker.BussinessLogic.Abstract;
+using ExpensesTracker.Models;
 
-namespace NewExTracker.Controllers
+namespace ExpensesTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

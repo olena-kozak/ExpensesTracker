@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32126.317
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NewExTracker", "NewExTracker\NewExTracker.csproj", "{15ABF8E4-A6BB-4273-A3C6-1FCE1A69A0BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExpensesTracker", "NewExTracker\ExpensesTracker.csproj", "{15ABF8E4-A6BB-4273-A3C6-1FCE1A69A0BC}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ExpensesTrackerDatabase", "ExpensesTrackerDatabase\ExpensesTrackerDatabase.sqlproj", "{270A17BF-B09D-48F8-B744-4D0C0CB3A982}"
 EndProject

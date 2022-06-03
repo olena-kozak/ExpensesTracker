@@ -1,7 +1,7 @@
-﻿using NewExTracker.Models;
-using NewExTracker.Models.DTO;
+﻿using ExpensesTracker.Models;
+using ExpensesTracker.Models.DTO;
 
-namespace NewExTracker.BussinessLogic.Abstract
+namespace ExpensesTracker.BussinessLogic.Abstract
 {
     public interface ICardService
     {

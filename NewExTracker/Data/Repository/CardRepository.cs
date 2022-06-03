@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using NewExTracker.Data.Repository.IRepository;
-using NewExTracker.Models;
-using NewExTracker.Models.DTO;
+using ExpensesTracker.Data.Repository.IRepository;
+using ExpensesTracker.Models;
+using ExpensesTracker.Models.DTO;
 
-namespace NewExTracker.Data.Repository
+namespace ExpensesTracker.Data.Repository
 {
     public class CardRepository : ICardRepository
     {

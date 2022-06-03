@@ -1,4 +1,4 @@
-﻿namespace NewExTracker.BussinessLogic.Abstract
+﻿namespace ExpensesTracker.BussinessLogic.Abstract
 {
     public interface IAvailiableSumHandler
     {

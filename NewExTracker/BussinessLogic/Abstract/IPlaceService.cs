@@ -1,6 +1,6 @@
-﻿using NewExTracker.Models;
+﻿using ExpensesTracker.Models;
 
-namespace NewExTracker.BussinessLogic.Abstract
+namespace ExpensesTracker.BussinessLogic.Abstract
 {
     public interface IPlaceService
     {

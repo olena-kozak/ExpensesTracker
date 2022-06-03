@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using NewExTracker.BussinessLogic;
-using NewExTracker.BussinessLogic.Abstract;
-using NewExTracker.BussinessLogic.Implementation;
-using NewExTracker.Data;
-using NewExTracker.Data.Repository;
-using NewExTracker.Data.Repository.IRepository;
-using NewExTracker.Models;
+using ExpensesTracker.BussinessLogic;
+using ExpensesTracker.BussinessLogic.Abstract;
+using ExpensesTracker.BussinessLogic.Implementation;
+using ExpensesTracker.Data;
+using ExpensesTracker.Data.Repository;
+using ExpensesTracker.Data.Repository.IRepository;
+using ExpensesTracker.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,7 +1,7 @@
-﻿using NewExTracker.BussinessLogic.Abstract;
+﻿using ExpensesTracker.BussinessLogic.Abstract;
 using System.Text.RegularExpressions;
 
-namespace NewExTracker.BussinessLogic.Implementation
+namespace ExpensesTracker.BussinessLogic.Implementation
 {
     public class DateTimeHandler : IDateTimeHandler
     {

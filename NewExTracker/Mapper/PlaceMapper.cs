@@ -1,6 +1,6 @@
-﻿using NewExTracker.Models;
+﻿using ExpensesTracker.Models;
 
-namespace NewExTracker.Mapper
+namespace ExpensesTracker.Mapper
 {
     public static class PlaceMapper
     {

@@ -1,4 +1,4 @@
-﻿namespace NewExTracker.Models
+﻿namespace ExpensesTracker.Models
 {
     public class RefusalMessage : BaseMessage
     {

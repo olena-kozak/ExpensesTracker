@@ -1,6 +1,6 @@
-﻿using NewExTracker.Models.DTO;
+﻿using ExpensesTracker.Models.DTO;
 
-namespace NewExTracker.BussinessLogic
+namespace ExpensesTracker.BussinessLogic
 {
     public interface IOperationDispatch
     {

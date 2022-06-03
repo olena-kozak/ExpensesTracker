@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using NewExTracker.Models;
+using ExpensesTracker.Models;
 
-namespace NewExTracker.Data
+namespace ExpensesTracker.Data
 {
     public partial class ApplicationDbContext : DbContext
     {

@@ -1,12 +1,12 @@
-﻿using NewExTracker.BussinessLogic.Abstract;
-using NewExTracker.Data.Repository.IRepository;
-using NewExTracker.Models;
-using NewExTracker.Mapper;
+﻿using ExpensesTracker.BussinessLogic.Abstract;
+using ExpensesTracker.Data.Repository.IRepository;
+using ExpensesTracker.Models;
+using ExpensesTracker.Mapper;
 using System.Text.RegularExpressions;
-using RegexPaterns = NewExTracker.Models.RegexPaterns;
-using NewExTracker.BussinessLogic.Exceptions;
+using RegexPaterns = ExpensesTracker.Models.RegexPaterns;
+using ExpensesTracker.BussinessLogic.Exceptions;
 
-namespace NewExTracker.BussinessLogic.Implementation
+namespace ExpensesTracker.BussinessLogic.Implementation
 {
     public class PlaceService : IPlaceService
     {

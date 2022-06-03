@@ -1,8 +1,8 @@
-﻿using NewExTracker.BussinessLogic.Exceptions;
-using NewExTracker.Data.Repository.IRepository;
-using NewExTracker.Models;
+﻿using ExpensesTracker.BussinessLogic.Exceptions;
+using ExpensesTracker.Data.Repository.IRepository;
+using ExpensesTracker.Models;
 
-namespace NewExTracker.Data.Repository
+namespace ExpensesTracker.Data.Repository
 {
     public class PlaceRepository : IPlaceRepository
     {

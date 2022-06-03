@@ -1,15 +1,15 @@
-﻿using NewExTracker.BussinessLogic;
-using NewExTracker.Models;
-using NewExTracker.Models.DTO;
+﻿using ExpensesTracker.BussinessLogic;
+using ExpensesTracker.Models;
+using ExpensesTracker.Models.DTO;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using NewExTracker.BussinessLogic.Abstract;
+using ExpensesTracker.BussinessLogic.Abstract;
 
-namespace NewExTracker.Controllers
+namespace ExpensesTracker.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

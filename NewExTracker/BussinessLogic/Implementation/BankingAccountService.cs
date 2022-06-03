@@ -1,9 +1,9 @@
-﻿using NewExTracker.BussinessLogic.Abstract;
-using NewExTracker.Data.Repository.IRepository;
-using NewExTracker.Models;
+﻿using ExpensesTracker.BussinessLogic.Abstract;
+using ExpensesTracker.Data.Repository.IRepository;
+using ExpensesTracker.Models;
 using System.Text.RegularExpressions;
 
-namespace NewExTracker.BussinessLogic.Implementation
+namespace ExpensesTracker.BussinessLogic.Implementation
 {
     public class BankingAccountService : IBankingAccountService
     {

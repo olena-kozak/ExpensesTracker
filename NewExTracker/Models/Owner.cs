@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace NewExTracker.Models
+namespace ExpensesTracker.Models
 {
     public partial class Owner
     {

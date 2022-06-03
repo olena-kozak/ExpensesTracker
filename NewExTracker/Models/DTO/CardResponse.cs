@@ -1,4 +1,4 @@
-﻿namespace NewExTracker.Models.DTO
+﻿namespace ExpensesTracker.Models.DTO
 {
     public class CardResponse
     {

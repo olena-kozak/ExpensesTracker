@@ -1,6 +1,6 @@
-﻿using NewExTracker.BussinessLogic.Abstract;
+﻿using ExpensesTracker.BussinessLogic.Abstract;
 
-namespace NewExTracker.BussinessLogic.Abstract
+namespace ExpensesTracker.BussinessLogic.Abstract
 {
     public interface IDateTimeHandler
     {

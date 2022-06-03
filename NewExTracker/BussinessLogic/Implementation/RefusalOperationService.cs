@@ -1,7 +1,7 @@
-﻿using NewExTracker.BussinessLogic.Abstract;
-using NewExTracker.Models;
+﻿using ExpensesTracker.BussinessLogic.Abstract;
+using ExpensesTracker.Models;
 
-namespace NewExTracker.BussinessLogic.Implementation
+namespace ExpensesTracker.BussinessLogic.Implementation
 {
     public class RefusalOperationService
     {

@@ -1,10 +1,10 @@
-﻿using NewExTracker.BussinessLogic.Abstract;
-using NewExTracker.Data.Repository.IRepository;
-using NewExTracker.Models;
-using NewExTracker.Models.DTO;
+﻿using ExpensesTracker.BussinessLogic.Abstract;
+using ExpensesTracker.Data.Repository.IRepository;
+using ExpensesTracker.Models;
+using ExpensesTracker.Models.DTO;
 using System.Text.RegularExpressions;
 
-namespace NewExTracker.BussinessLogic.Implementation
+namespace ExpensesTracker.BussinessLogic.Implementation
 {
     public class CardService : ICardService
     {
