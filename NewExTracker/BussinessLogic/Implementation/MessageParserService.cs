@@ -19,7 +19,7 @@ namespace NewExTracker.BussinessLogic.Implementation
             _operationDispatch = operationDispatch;
         }
 
-        public object ParseMessageInObject(MessageRequest messageRequest)
+        public MessageResponse ParseMessageInObject(MessageRequest messageRequest)
         {
             string message = GetStringFromMessageRequest(messageRequest);
             string ownerPhoneNumber = GetOwnerPhoneNumber(messageRequest);

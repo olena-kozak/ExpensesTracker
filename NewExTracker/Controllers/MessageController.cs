@@ -36,11 +36,11 @@ namespace NewExTracker.Controllers
                 return BadRequest(ModelState);
             }
 
-            object responseMessage = _messageParserService.ParseMessageInObject(requestMessage);
+            MessageResponse messageResponse = _messageParserService.ParseMessageInObject(requestMessage);
 
-            if (responseMessage != null)
+            if (messageResponse != null)
             {
-                return Ok(responseMessage);
+                return Ok(messageResponse);
             }
             return Ok();
         }

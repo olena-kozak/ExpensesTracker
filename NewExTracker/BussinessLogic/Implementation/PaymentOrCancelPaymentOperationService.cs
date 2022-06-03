@@ -1,63 +1,54 @@
 ﻿using NewExTracker.BussinessLogic.Abstract;
 using NewExTracker.Models;
+using NewExTracker.Mapper;
+using static NewExTracker.BussinessLogic.Implementation.BaseOperationService;
+using NewExTracker.BussinessLogic.Exceptions;
 
 namespace NewExTracker.BussinessLogic.Implementation
 {
     public class PaymentCancelPaymentService : IPaymentCancelPaymentService
     {
         private ICardService _cardService;
-        private IPlaceService _placeService;
-        private IDateTimeHandler _dateTimeHandler;
         private ISumHandler _sumHandler;
         private IOperationTypeHandler _operationTypeHandler;
         private IAvailiableSumHandler _availiableSumHandler;
         private IBankingAccountService _bankingAccountService;
+        private IBaseMessageCreator<PaymentCancelPaymentMessage> _baseMessageCreator;
 
-        public PaymentCancelPaymentService(IDateTimeHandler dateTimeHandler, IOperationTypeHandler operationTypeHandler, IAvailiableSumHandler availiableSumHandler,
-            IBankingAccountService bankingAccountService, ICardService cardService, IPlaceService placeService, ISumHandler sumHandler)
+        public PaymentCancelPaymentService(IOperationTypeHandler operationTypeHandler, ICardService cardService, ISumHandler sumHandler,
+                                            IAvailiableSumHandler availiableSumHandler, IBankingAccountService bankingAccountService,
+                                            IBaseMessageCreator<PaymentCancelPaymentMessage> baseMessageCreator)                                 //IEnumerable<IBaseInterface> interfacesToREsolve                                                       
         {
-            _dateTimeHandler = dateTimeHandler;
+            _cardService = cardService;
+            _sumHandler = sumHandler;
             _operationTypeHandler = operationTypeHandler;
             _availiableSumHandler = availiableSumHandler;
             _bankingAccountService = bankingAccountService;
-            _cardService = cardService;
-            _dateTimeHandler = dateTimeHandler;
-            _sumHandler = sumHandler;
-            _placeService = placeService;
+            _baseMessageCreator = baseMessageCreator;
         }
 
         public PaymentCancelPaymentMessage HandlePaymentCancelPaymentOperation(string receivedMessage, string ownerPhoneNumber, string operationType)
         {
-            PaymentCancelPaymentMessage paymentOrCancelPaymentMessage = new PaymentCancelPaymentMessage();
-
             Card card = _cardService.GetCard(receivedMessage, ownerPhoneNumber);
-            if (card != null)                                                                               // TODO: if card is null
+            if (card != null)
             {
-                paymentOrCancelPaymentMessage.CardNumber = card.CardNumber;
-                paymentOrCancelPaymentMessage.UserName = card.CardUser.Person.Name;                                        //TODO: card user can't be null
-                paymentOrCancelPaymentMessage.UserSurname = card.CardUser.Person.Surname;
-                paymentOrCancelPaymentMessage.Place = _placeService.GetPlaceByOtpSmartName(receivedMessage);
-                if (operationType.Equals(OperationType.PAYMENT_CANCEL, StringComparison.OrdinalIgnoreCase))
-                {
-                    paymentOrCancelPaymentMessage.MessageType = OperationType.PAYMENT_CANCEL;
-                }
-                else
-                {
-                    paymentOrCancelPaymentMessage.MessageType = OperationType.PAYMENT;
-                }
+                var parsedAvailiableSumFromRequest = _availiableSumHandler.ParseAvailiableSumFromRequest(receivedMessage);
+                var sum = _sumHandler.GetSumAsDecimal(receivedMessage);
+                //var availiableSum = _bankingAccountService.UpdateAvailiableSum(card.BankingAccount, sum, parsedAvailiableSumFromRequest);
+                //if (availiableSum != null)
+                //{
+                PaymentCancelPaymentMessage paymentOrCancelPaymentMessage = _baseMessageCreator.HandleBaseOperation(receivedMessage);
                 paymentOrCancelPaymentMessage.OperationSubtype = _operationTypeHandler.GetOperationSubtype(receivedMessage);
-                paymentOrCancelPaymentMessage.Sum = _sumHandler.GetSumAsString(receivedMessage);
-                decimal sum = _sumHandler.GetSumAsDecimal(receivedMessage);
-                paymentOrCancelPaymentMessage.DateTime = _dateTimeHandler.GetDateTime(receivedMessage);
-                string parsedAvailiableSumFromRequest = _availiableSumHandler.ParseAvailiableSumFromRequest(receivedMessage);
-                paymentOrCancelPaymentMessage.AvailiableSum = _bankingAccountService.UpdateAvailiableSum(card.BankingAccount, sum, parsedAvailiableSumFromRequest);   //TODO: bankingAccount can't be null
-
+                paymentOrCancelPaymentMessage.CardNumber = card.CardNumber;
+                paymentOrCancelPaymentMessage.UserName = card.CardUser.Person.Name;                                                      //TODO: card user can't be null
+                paymentOrCancelPaymentMessage.UserSurname = card.CardUser.Person.Surname;
+                // paymentOrCancelPaymentMessage.AvailiableSum = availiableSum;
                 return paymentOrCancelPaymentMessage;
+                //}
             }
             else
             {
-                paymentOrCancelPaymentMessage.MessageType = "Card was not found";
-                return paymentOrCancelPaymentMessage;
+                throw new CardNotFoundException("Card not found exception");
             }
         }
     }

@@ -4,6 +4,6 @@ namespace NewExTracker.BussinessLogic
 {
     public interface IOperationDispatch
     {
-        public object Dispatch(string receivedMessage, string ownerPhoneNumber);
+        public MessageResponse Dispatch(string receivedMessage, string ownerPhoneNumber);
     }
 }

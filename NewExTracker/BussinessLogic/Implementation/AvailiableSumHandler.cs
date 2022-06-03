@@ -7,7 +7,7 @@ namespace NewExTracker.BussinessLogic.Implementation
     {
         public string ParseAvailiableSumFromRequest(string message)
         {
-            Regex regex = new Regex(@"Dostupno[:]\s\d*\.\d*\s\w+\s");
+            Regex regex = new Regex(@"Dostupno[:]\s*\d*\.*\d*\s\w+\s\.*");
             Match match = regex.Match(message);
             if (match.Success)
             {
@@ -24,7 +24,7 @@ namespace NewExTracker.BussinessLogic.Implementation
         public decimal GetAvailiableSumOnlyDigits(string receivedAvailiableSum)
         {
             decimal availiableSum = 0;
-            Regex regex = new Regex(@"\d*\.\d*\s");
+            Regex regex = new Regex(@"\d*\.*\d*\s\.*");
             Match match = regex.Match(receivedAvailiableSum);
             if (match.Success)
             {

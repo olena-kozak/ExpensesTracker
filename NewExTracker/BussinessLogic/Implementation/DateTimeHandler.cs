@@ -1,4 +1,5 @@
-﻿using System.Text.RegularExpressions;
+﻿using NewExTracker.BussinessLogic.Abstract;
+using System.Text.RegularExpressions;
 
 namespace NewExTracker.BussinessLogic.Implementation
 {

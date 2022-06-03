@@ -8,5 +8,6 @@
         public const string CASH_WITHDROWN = "CashWithdrown";
         public const string PAYMENT_CANCEL = "PaymentCancel";
         public const string MONEY_TRANSFERRING = "MoneyTransferring";
+        public const string CARD_NOT_FOUND = "CardNotFound";
     }
 }

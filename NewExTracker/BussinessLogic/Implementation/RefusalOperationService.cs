@@ -14,14 +14,16 @@ namespace NewExTracker.BussinessLogic.Implementation
         {
 
         }
-        public RefusalMessage RefusalOperationHandler(OperationInformation operationInformation)
+        /*
+        public RefusalMessage RefusalOperationHandler()
         {
+
             RefusalMessage refusalMessage = new RefusalMessage();
             refusalMessage.MessageType = OperationType.REFUSAL;
             refusalMessage.DateTime = _dateTimeHandler.GetDateTime(operationInformation.Message);
             refusalMessage.OperationSubtype = _operationTypeHandler.GetOperationSubtype(operationInformation.Message);
 
             return refusalMessage;
-        }
+        }*/
     }
 }

@@ -10,30 +10,33 @@ namespace NewExTracker.BussinessLogic.Implementation
         private IAvailiableSumHandler _availiableSumHandler;
         private IBankingAccountRepository _bankingAccountRepository;
 
-        public BankingAccountService(IAvailiableSumHandler availiableSumHandler, IBankingAccountRepository bankingAccountRepository)
+        public BankingAccountService(IAvailiableSumHandler availiableSumHandler, IBankingAccountRepository bankingAccountRepository) 
         {
             _availiableSumHandler = availiableSumHandler;
             _bankingAccountRepository = bankingAccountRepository;
         }
 
-        public string UpdateAvailiableSum(BankingAccount bankingAccount, decimal sum, string avaliableSumFroRequest)                          //TODO: object as parameter?
+        public string UpdateAvailiableSum(BankingAccount bankingAccount, decimal sum, string avaliableSumForRequest)
         {
-            if (avaliableSumFroRequest != null)
+            if (avaliableSumForRequest != null)
             {
-                decimal parsedAvaliablSumFromRequest = _availiableSumHandler.GetAvailiableSumOnlyDigits(avaliableSumFroRequest);
+                decimal parsedAvaliablSumFromRequest = _availiableSumHandler.GetAvailiableSumOnlyDigits(avaliableSumForRequest);
                 bool isAvailiableSumSame = CheckAlailibleSum(bankingAccount.AvailiableSum, sum, parsedAvaliablSumFromRequest);
                 if (isAvailiableSumSame)
                 {
                     bool isUpdated = UpdateAlailibleSum(bankingAccount.Id, parsedAvaliablSumFromRequest);
                     if (isUpdated)
                     {
-                        return avaliableSumFroRequest;
+                        return avaliableSumForRequest;
                     }
                     else
                     {
                         throw new Exception("Something went wrong during update");
                     }
-
+                }
+                else
+                {
+                    throw new Exception("AvailiableSum doesn't correspond");                  //TODO: if doesn't respond
                 }
             }
             return null;
@@ -47,8 +50,6 @@ namespace NewExTracker.BussinessLogic.Implementation
         private bool UpdateAlailibleSum(int bankingAccountId, decimal parsedAvaliablSumFromRequest)
         {
             return _bankingAccountRepository.UpdateAvailiableSum(bankingAccountId, parsedAvaliablSumFromRequest);
-
         }
-
     }
 }

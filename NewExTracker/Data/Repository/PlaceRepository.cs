@@ -1,4 +1,5 @@
-﻿using NewExTracker.Data.Repository.IRepository;
+﻿using NewExTracker.BussinessLogic.Exceptions;
+using NewExTracker.Data.Repository.IRepository;
 using NewExTracker.Models;
 
 namespace NewExTracker.Data.Repository
@@ -17,7 +18,6 @@ namespace NewExTracker.Data.Repository
             return Save();
         }
 
-        ///якщо при get place відсутнє в бд, то використати otpSmartName
         public Place GetPlaceByOtpName(PlaceRequest placeRequest)
         {
             if (PlaceExist(placeRequest.OTPSmartName))

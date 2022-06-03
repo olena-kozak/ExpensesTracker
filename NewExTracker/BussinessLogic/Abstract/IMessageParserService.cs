@@ -10,7 +10,7 @@ namespace NewExTracker.BussinessLogic.Abstract
 {
     public interface IMessageParserService
     {
-        public object ParseMessageInObject(MessageRequest messageRequest);
+        public MessageResponse ParseMessageInObject(MessageRequest messageRequest);
 
 
 

@@ -7,7 +7,7 @@ namespace NewExTracker.BussinessLogic.Abstract
         public bool CreatePlace(PlaceRequest addPlaceRequest);
         public bool PlaceExist(string name);
         public Place GetPlaceByOtpName(PlaceRequest placeRequest);
-        public string GetPlaceByOtpSmartName(string message);
+        public string GetPlaceByOtpSmartName(string message, string operationType);
 
 
     }

@@ -7,7 +7,7 @@ namespace NewExTracker.BussinessLogic.Implementation
     {
         public string GetSumAsString(string receivedMessage)
         {
-            Regex regex = new Regex(@"Suma[:]\s\-*\d+\.*\d*\s\w+[.]");    //TODO: -4.95 USD
+            Regex regex = new Regex(@"Suma[:]\s\-*\d+\.*\d*\s\w+[.]");    //TODO: -4.95 USD CONVERT IN UA
             Match match = regex.Match(receivedMessage);
             if (match.Success)
             {
